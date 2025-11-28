@@ -1,0 +1,36 @@
+** sch_path: /foss/designs/ADT_Designs/cascode_amplifier.sch
+**.subckt cascode_amplifier
+XM1 vout vsig GND GND sg13_lv_nmos w=7.5u l=2u ng=1 m=1
+V1 net1 vsig DC 94m
+I0 VDD vout 20u
+V2 VDD GND 1.8
+C1 vout GND 1p m=1
+V3 net2 GND DC 0 AC 1
+R1 vout net1 1 ac=1e12 m=1
+R2 vsig net2 1e12 ac=1 m=1
+**** begin user architecture code
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+
+
+
+
+
+.param temp=27
+.control
+saveall
+op
+write cascode_amplifier.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.GLOBAL VDD
+.end

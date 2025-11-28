@@ -1,0 +1,38 @@
+** sch_path: /foss/designs/ADT_Designs/lab_1/cs_amplifier.sch
+**.subckt cs_amplifier
+XM1 vout net1 GND GND sg13_lv_nmos w=8.4u l=2u ng=1 m=3
+R1 VDD vout 6k m=1
+I0 VDD net2 100u
+R2 net1 net2 1 ac=1e12 m=1
+XM2 net2 net2 GND GND sg13_lv_nmos w=8.4u l=2u ng=1 m=3
+R3 net1 vin 1e12 ac=1 m=1
+V1 VDD GND 1.2
+V2 vin GND DC 0 AC 1
+**** begin user architecture code
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+
+
+
+
+
+.include cs_amplifier.save
+
+.control
+save all
+op
+*ac dec 10 1 10g
+write cs_amplifier.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.GLOBAL VDD
+.end

@@ -1,0 +1,41 @@
+** sch_path: /foss/designs/ADT_Designs/5T_OTA.sch
+**.subckt 5T_OTA
+V1 vdd GND 1.8
+I0 vdd net2 10u
+V2 vout GND 1.2
+Vmeas vout net4 0
+.save i(vmeas)
+XM1 net1 net1 GND GND sg13_hv_nmos w=2.8u l=2u ng=1 m=1
+XM2 net3 net1 GND GND sg13_hv_nmos w=2.8u l=2u ng=1 m=2
+XM3 net2 net2 net1 net1 sg13_hv_nmos w=2.8u l=2u ng=1 m=1
+XM4 net4 net2 net3 net3 sg13_hv_nmos w=2.8u l=2u ng=1 m=2
+XM5 net7 net5 net4 net4 sg13_hv_nmos w=2u l=0.5u ng=1 m=2
+XM6 vout net6 net4 net4 sg13_hv_nmos w=2u l=0.5u ng=1 m=2
+XM7 net7 net7 vdd net7 sg13_lv_pmos w=5u l=2u ng=1 m=1
+XM8 vout net7 vdd vout sg13_lv_pmos w=5u l=2u ng=1 m=1
+**** begin user architecture code
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+
+
+
+
+
+.control
+save all
+op
+dc V2 0 2 0.001
+plot i(vmeas)
+write mirror_tb.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

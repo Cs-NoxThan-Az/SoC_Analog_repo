@@ -1,0 +1,37 @@
+** sch_path: /foss/designs/ADT_Designs/pmos_current.sch
+**.subckt pmos_current
+XM7 vg vg vdd vdd sg13_lv_pmos w=5u l=2u ng=1 m=4
+XM8 net1 vg vdd vdd sg13_lv_pmos w=5u l=2u ng=1 m=4
+I0 vg net2 10u
+V1 vdd GND 1.2
+V3 vout GND 1.2
+Vmeas net2 GND 0
+.save i(vmeas)
+Vmeas1 net1 vout 0
+.save i(vmeas1)
+**** begin user architecture code
+
+
+
+.control
+save all
+op
+dc V3 0 1.2 0.001
+plot i(vmeas) i(vmeas1)
+plot vg
+.endc
+
+
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

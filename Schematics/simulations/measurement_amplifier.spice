@@ -1,0 +1,34 @@
+** sch_path: /foss/designs/analog-circuit-design/xschem/measurement_amplifier.sch
+**.subckt measurement_amplifier
+Vdd vdd GND 1.5
+Rload vout GND 50 m=1
+R2 vout GND 50 m=1
+Vmeas net1 vout 0
+.save i(vmeas)
+XM1 net1 vin vdd vdd sg13_lv_pmos w=260u l=0.13u ng=52 m=1
+Vsrc net2 GND dc 0.899 ac 1
+R1 vin net2 1k m=1
+**** begin user architecture code
+ .lib cornerMOSlv.lib mos_tt
+
+
+
+.temp 27
+.control
+option sparse
+save all
+op
+write measurement_amplifier.raw
+set appendwrite
+ac dec 101 1k 1G
+let vout_db=20*log10(mag(vout))
+meas ac vout_db_max max vout_db
+print vout_db_max
+write measurement_amplifier.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

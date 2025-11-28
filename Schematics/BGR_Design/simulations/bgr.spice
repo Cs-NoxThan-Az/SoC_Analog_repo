@@ -1,0 +1,97 @@
+** sch_path: /foss/designs/BGR_Design/bgr.sch
+**.subckt bgr
+Vdd v_dd GND 1.5
+XQ1 GND GND net4 pnpMPA a=2e-12 p=6e-06 m=2
+XQ2 GND GND v3 pnpMPA a=2e-12 p=6e-06 m=32
+XM1A net6 net2 v1 GND sg13_lv_nmos w=15u l=1u ng=3 m=1
+XQ3 GND GND net3 pnpMPA a=2e-12 p=6e-06 m=32
+Vmeas v1 net4 0
+.save i(vmeas)
+Vmeas1 net12 vref 0
+.save i(vmeas1)
+XM4B net7 net9 net8 v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XM1B net2 net7 net6 GND sg13_lv_nmos w=15u l=1u ng=3 m=1
+XM2A net5 net2 v2 GND sg13_lv_nmos w=15u l=1u ng=3 m=1
+XM2B net9 net7 net5 GND sg13_lv_nmos w=15u l=1u ng=3 m=1
+XM4A net8 net1 v_dd v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XM3B net1 net9 net10 v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XM3A net10 net1 v_dd v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XM5A net11 net1 v_dd v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XM5B net12 net9 net11 v_dd sg13_lv_pmos w=50u l=1u ng=10 m=1
+XMstartup net13 net13 net9 v_dd sg13_lv_pmos w=0.5u l=10u ng=1 m=1
+Vmeas2 net13 net7 0
+.save i(vmeas2)
+x3 v2 v3 GND bandgap_simple_res-6k
+x4 vref net3 GND bandgap_simple_res-37k5
+Vmeas3 net7 net2 0
+.save i(vmeas3)
+Vmeas4 net1 net9 0
+.save i(vmeas4)
+**** begin user architecture code
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+
+
+
+
+
+.control
+save all
+op
+tran 1n 10u
+plot vref
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-6k.sym # of pins=3
+** sym_path: /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-6k.sym
+** sch_path: /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-6k.sch
+.subckt bandgap_simple_res-6k rp rn bn
+*.iopin rp
+*.iopin rn
+*.iopin bn
+XR1 rn net1 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR21 net1 rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR22 net1 rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR23 net1 rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR24 net1 rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR25 net1 rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+* noconn bn
+.ends
+
+
+* expanding   symbol:  /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-37k5.sym # of pins=3
+** sym_path: /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-37k5.sym
+** sch_path: /foss/designs/analog-circuit-design/xschem/bandgap_simple_res-37k5.sch
+.subckt bandgap_simple_res-37k5 rp rn bn
+*.iopin rp
+*.iopin rn
+*.iopin bn
+XR1 r1 rp1 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR2 r2 r1 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR3 r3 r2 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR4 r4 r3 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR5 r5 r4 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR6 r6 r5 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR7 rn r6 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR11 rp rp1 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XR12 rp rp1 bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XRdummy1 rp rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XRdummy2 rp rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XRdummy3 rp rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XRdummy4 rp rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+XRdummy5 rp rp bn rppd w=0.5e-6 l=10e-6 m=1 b=0
+* noconn bn
+.ends
+
+.GLOBAL GND
+.end
